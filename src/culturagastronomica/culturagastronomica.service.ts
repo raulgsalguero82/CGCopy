@@ -83,4 +83,10 @@ export class CulturagastronomicaService {
 
     await this.culturagastronomicaRepository.remove(culturagastronomica);
   }
+
+
+  async TODO()
+  {
+
+  }
 }

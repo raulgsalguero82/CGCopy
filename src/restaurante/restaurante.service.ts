@@ -5,7 +5,7 @@ import {
   BusinessLogicException,
 } from '../shared/errors/business-errors';
 import { Repository } from 'typeorm';
-import { RestauranteEntity } from './restaurante.entity';
+import { EstrellasMichelinType, RestauranteEntity } from './restaurante.entity';
 import { Cache } from 'cache-manager';
 
 @Injectable()
@@ -54,6 +54,27 @@ export class RestauranteService {
 
   // CREATE
   async create(restaurante: RestauranteEntity): Promise<RestauranteEntity> {
+
+    switch(restaurante.estrellasMichelin){
+      case EstrellasMichelinType.NINGUNA:
+      {break;}
+      case EstrellasMichelinType.UNA:
+      {break;}
+      case EstrellasMichelinType.DOS:
+      {break;}
+      case EstrellasMichelinType.TRES:
+      {break;}
+    }
+
+
+    if(restaurante.estrellasMichelin!=EstrellasMichelinType.NINGUNA && restaurante.estrellasMichelin!=EstrellasMichelinType.UNA && restaurante.estrellasMichelin!=EstrellasMichelinType.DOS && restaurante.estrellasMichelin!=EstrellasMichelinType.TRES )
+    {
+      throw new BusinessLogicException(
+        `Formato invalido`,
+        BusinessError.PRECONDITION_FAILED,
+      );
+    }
+
     return this.restauranteRepository.save(restaurante);
   }
 
@@ -73,6 +94,25 @@ export class RestauranteService {
       throw new BusinessLogicException(
         `El restaurante con id ${id} no se ha encontrado`,
         BusinessError.NOT_FOUND,
+      );
+    }
+
+    switch(restaurante.estrellasMichelin){
+      case EstrellasMichelinType.NINGUNA:
+      {break;}
+      case EstrellasMichelinType.UNA:
+      {break;}
+      case EstrellasMichelinType.DOS:
+      {break;}
+      case EstrellasMichelinType.TRES:
+      {break;}
+    }
+
+    if(restaurante.estrellasMichelin!=EstrellasMichelinType.NINGUNA && restaurante.estrellasMichelin!=EstrellasMichelinType.UNA && restaurante.estrellasMichelin!=EstrellasMichelinType.DOS && restaurante.estrellasMichelin!=EstrellasMichelinType.TRES )
+    {
+      throw new BusinessLogicException(
+        `Formato invalido`,
+        BusinessError.PRECONDITION_FAILED,
       );
     }
 
@@ -96,5 +136,10 @@ export class RestauranteService {
     }
 
     await this.restauranteRepository.remove(restaurante);
+  }
+
+  async TODO()
+  {
+    //TODO
   }
 }

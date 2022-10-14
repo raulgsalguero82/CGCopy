@@ -19,6 +19,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') implements CanActivate {
     const jwt = request.headers.authorization.replace('Bearer ', '');
 
     if (!jwt) {
+      console.log("Bearer not found");
       return false;
     }
 
