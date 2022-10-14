@@ -31,6 +31,7 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
+    "@types/rx": "^4.1.2",
     "apollo-server-express": "^3.10.2",
     "cache-manager": "^4.1.0",
     "class-transformer": "^0.5.1",
