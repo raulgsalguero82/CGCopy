@@ -1,0 +1,625 @@
+{
+	"info": {
+		"_postman_id": "9f52d0c9-2470-4f4d-a118-af83e648814c",
+		"name": "CulturasGastronomicas-Recetas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14497576"
+	},
+	"item": [
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "CulturasGastronomicas-Recetas",
+					"item": [
+						{
+							"name": "Auth Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.globals.set(\"token\", data.token);",
+											"",
+											"pm.test(\"Status code es 201\", function () {",
+											"   pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/users/login",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear una receta",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.globals.set(\"receta_id\", data.id);",
+											"",
+											"pm.test(\"Status code es 201\", function () {",
+											"   pm.response.to.have.status(201);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NombreReceta\",\r\n    \"descripcion\": \"Una descripcion\",\r\n    \"urlFoto\": \"https://user-images.githubusercontent.com/4565451/185271170-cce57574-19b5-4c57-affd-a65d7e6f65e3.png\",\r\n    \"procesoDePreparacion\": \"Un proceso de preparación\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/recetas",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"recetas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear una cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.globals.set(\"culturagastronomica_id\", data.id);",
+											"",
+											"pm.test(\"Status code es 201\", function () {",
+											"   pm.response.to.have.status(201);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NombreCulturaGastronomica\",\r\n    \"descripcion\": \"Una descripcion\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Asocia receta con cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Status code es 201\", function () {",
+											"   pm.response.to.have.status(201);",
+											"});",
+											"",
+											"pm.test(\"Contiene cultura correcta\", function(){",
+											"    pm.expect(data.id).to.be.equal(pm.globals.get(\"culturagastronomica_id\"));",
+											"});",
+											"",
+											"pm.test(\"Contiene cultura correcta\", function(){",
+											"    pm.expect(data.recetas[0].id).to.be.equal(pm.globals.get(\"receta_id\"));",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{culturagastronomica_id}}/recetas/{{receta_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{culturagastronomica_id}}",
+										"recetas",
+										"{{receta_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Asocia receta inexistente con cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 404\", function () {",
+											"   pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{culturagastronomica_id}}/recetas/0bbe01f9-585f-4617-ba8f-8db97a0351fa",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{culturagastronomica_id}}",
+										"recetas",
+										"0bbe01f9-585f-4617-ba8f-8db97a0351fa"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Asocia receta con cultura gastronomica inexistente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 404\", function () {",
+											"   pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/0bbe01f9-585f-4617-ba8f-8db97a0351fa/recetas/{{receta_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"0bbe01f9-585f-4617-ba8f-8db97a0351fa",
+										"recetas",
+										"{{receta_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener recetas de cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Nume ro de restaurantes > ' + 0, function () {",
+											"   var data = pm.response.json()",
+											"   pm.expect(data.length).to.greaterThan(0)",
+											"});",
+											"",
+											"pm.test(\"Status code es 200\", function () {",
+											"   pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{culturagastronomica_id}}/recetas",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{culturagastronomica_id}}",
+										"recetas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener recetas de cultura gastronomica inexistente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 404\", function () {",
+											"   pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/0bbe01f9-585f-4617-ba8f-8db97a0351fa/recetas",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"0bbe01f9-585f-4617-ba8f-8db97a0351fa",
+										"recetas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Disocia receta con cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 200\", function () {",
+											"   pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{culturagastronomica_id}}/recetas/{{receta_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{culturagastronomica_id}}",
+										"recetas",
+										"{{receta_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Disocia receta inexistente con cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 412\", function () {",
+											"   pm.response.to.have.status(412);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{culturagastronomica_id}}/recetas/0bbe01f9-585f-4617-ba8f-8db97a0351fa",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{culturagastronomica_id}}",
+										"recetas",
+										"0bbe01f9-585f-4617-ba8f-8db97a0351fa"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Disocia receta con cultura gastronomica no asociadas",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 412\", function () {",
+											"   pm.response.to.have.status(412);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{culturagastronomica_id}}/recetas/{{receta_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{culturagastronomica_id}}",
+										"recetas",
+										"{{receta_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseProtocol",
+			"value": "http",
+			"type": "string"
+		},
+		{
+			"key": "baseURL",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "basePort",
+			"value": "3000",
+			"type": "string"
+		},
+		{
+			"key": "apiVersion",
+			"value": "v1",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,563 @@
+{
+	"info": {
+		"_postman_id": "e66ddb86-a9c9-481e-8e47-3483fe106a82",
+		"name": "CulturasGastronomicas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6393143"
+	},
+	"item": [
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "CulturasGastronomicas",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"pm.globals.set(\"token\", data.token);\r",
+											"\r",
+											"pm.test(\"Status code es 201\", function () {\r",
+											"   pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/users/login",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"pm.globals.set(\"id\", data.id);\r",
+											"\r",
+											"pm.test(\"Crear una cultura gastronomica: Status code es 201\", function () {\r",
+											"   pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"Cultura gastronomica 1\",\r\n    \"descripcion\" : \"Descripcion 1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Editar una cultura gastronomica: Status code es 200\", function () {\r",
+											"   pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"Cultura gastronomica 2\",\r\n    \"descripcion\" : \"Descripcion 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar cultura gastronomica sin nombre",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Editar una cultura gastronomica sin nombre\", function () {\r",
+											"   pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{    \r\n    \"descripcion\" : \"Descripcion 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar cultura gastronomica sin descripcion",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Editar una cultura gastronomica sin descripcion\", function () {\r",
+											"   pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{    \r\n    \"nombre\" : \"Descripcion 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Editar cultura gastronomica inexistente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Editar una cultura gastronomica inexistente: Status code es 404\", function () {\r",
+											"   pm.response.to.not.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"Cultura gastronomica 2\",\r\n    \"descripcion\" : \"Descripcion 2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/00000000-0000-0000-0000-000000000000",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"00000000-0000-0000-0000-000000000000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear cultura gastronomica sin nombre",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Crear cultura gastronomica sin nombre: Status code es 400\", function () {\r",
+											"   pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \r\n    \"descripcion\" : \"Descripcion 1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Traer todas las culturas gastronomicas",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Traer todas las cultura gastronomicas: Status code es 200\", function () {\r",
+											"   pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Traer una cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Traer una cultura gastronomicas: Status code es 200\", function () {\r",
+											"   pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Traer una cultura gastronomica inexistente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"\r",
+											"pm.test(\"Traer una cultura gastronomica inexistente: Status code es 404\", function () {\r",
+											"   pm.response.to.not.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/00000000-0000-0000-0000-000000000000",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"00000000-0000-0000-0000-000000000000"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseProtocol",
+			"value": "http",
+			"type": "string"
+		},
+		{
+			"key": "baseURL",
+			"value": "127.0.0.1",
+			"type": "string"
+		},
+		{
+			"key": "basePort",
+			"value": "3000",
+			"type": "string"
+		},
+		{
+			"key": "apiVersion",
+			"value": "V1",
+			"type": "string"
+		}
+	]
+}

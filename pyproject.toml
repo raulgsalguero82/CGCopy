@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "sql_generator"
+version = "0.1.0"
+description = "A series of scripts to generate SQL scripts for mock data"
+authors = ["Gonzalo Tixilima <g.tixilima@uniandes.edu.co>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "sql_generator"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Faker = "^14.2.1"
+tqdm = "^4.64.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.8.0"
+flake8 = "^5.0.4"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

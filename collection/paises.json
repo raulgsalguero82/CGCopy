@@ -1,0 +1,511 @@
+{
+	"info": {
+		"_postman_id": "82eda914-afd9-4159-97f5-601da30613ef",
+		"name": "Paises",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12453070"
+	},
+	"item": [
+		{
+			"name": "Auth Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()",
+							"pm.globals.set(\"token\", data.token);",
+							"",
+							"pm.test(\"Status code es 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/users/login",
+					"protocol": "{{baseProtocol}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{basePort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un pais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()",
+							"pm.globals.set(\"pais_id\", data.id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Colombia\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/paises",
+					"protocol": "{{baseProtocol}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{basePort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"paises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los paises",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Number of paises > ' + 0, function () {",
+							"   var data = pm.response.json()",
+							"   pm.expect(data.length).to.greaterThan(0)",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/paises",
+					"protocol": "{{baseProtocol}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{basePort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"paises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un pais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/paises/{{pais_id}}",
+					"protocol": "{{baseProtocol}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{basePort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"paises",
+						"{{pais_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un pais que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/paises/8d922963-2174-4f4c-b6ab-777f7f276896",
+					"protocol": "{{baseProtocol}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{basePort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"paises",
+						"8d922963-2174-4f4c-b6ab-777f7f276896"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un pais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Medellin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/paises/{{pais_id}}",
+					"protocol": "{{baseProtocol}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{basePort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"paises",
+						"{{pais_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un pais que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Medellin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/paises/8d922963-2174-4f4c-b6ab-777f7f276896",
+					"protocol": "{{baseProtocol}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{basePort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"paises",
+						"8d922963-2174-4f4c-b6ab-777f7f276896"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar pais",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/paises/{{pais_id}}",
+					"protocol": "{{baseProtocol}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{basePort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"paises",
+						"{{pais_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar pais que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/paises/8d922963-2174-4f4c-b6ab-777f7f276896",
+					"protocol": "{{baseProtocol}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"port": "{{basePort}}",
+					"path": [
+						"api",
+						"{{apiVersion}}",
+						"paises",
+						"8d922963-2174-4f4c-b6ab-777f7f276896"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "<Basic Auth Username>",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "<Basic Auth Password>",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "baseProtocol",
+			"value": "http",
+			"type": "string"
+		},
+		{
+			"key": "basePort",
+			"value": "3000",
+			"type": "string"
+		},
+		{
+			"key": "apiVersion",
+			"value": "v1",
+			"type": "string"
+		}
+	]
+}

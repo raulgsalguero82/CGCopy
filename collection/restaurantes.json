@@ -1,0 +1,593 @@
+{
+	"info": {
+		"_postman_id": "96dd1063-6b59-4b2f-8b57-524191847c2a",
+		"name": "Restaurantes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14497576"
+	},
+	"item": [
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Restaurantes",
+					"item": [
+						{
+							"name": "Auth Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.globals.set(\"token\", data.token);",
+											"",
+											"pm.test(\"Status code es 201\", function () {",
+											"   pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\" : \"admin\",\n    \"password\" : \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/users/login",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear un restaurante",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.globals.set(\"restaurante_id\", data.id);",
+											"",
+											"pm.test(\"Status code es 201\", function () {",
+											"   pm.response.to.have.status(201);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NombreRestaurante\"  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear un restaurante con estrellas sin fecha",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 400\", function () {",
+											"   pm.response.to.have.status(400);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NombreRestaurante\",\r\n    \"estrellasMichelin\": \"UNA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Actualizar un restaurante",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.globals.set(\"restaurante_nombre\", data.nombre);",
+											"pm.globals.set(\"restaurante_estrellas\", data.estrellasMichelin);",
+											"",
+											"pm.test(\"Status code es 200\", function () {",
+											"   pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NuevoNombreRestaurante\",\r\n    \"estrellasMichelin\": \"UNA\",\r\n    \"fechaDeConsecucion\" : \"2012-03-01T00:00:00.000Z\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/{{restaurante_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"{{restaurante_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Actualizar un restaurante no existente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 404\", function () {",
+											"   pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NuevoNombreRestaurante\",\r\n    \"estrellasMichelin\": \"UNA\",\r\n    \"fechaDeConsecucion\" : \"2012-03-01T00:00:00.000Z\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/0bbe01f9-585f-4617-ba8f-8db97a0351fa",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"0bbe01f9-585f-4617-ba8f-8db97a0351fa"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener un restaurante",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Status code es 200\", function () {",
+											"   pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Respuesta tiene el nombre correcto\", function () {",
+											"   pm.expect(data.nombre).to.be.equal(pm.globals.get(\"restaurante_nombre\"))",
+											"});",
+											"",
+											"pm.test(\"Respuesta tiene el numero de estrellas correcto\", function () {",
+											"   pm.expect(data.estrellasMichelin).to.be.equal(pm.globals.get(\"restaurante_estrellas\"))",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/{{restaurante_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"{{restaurante_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener un restaurante que no existe",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 404\", function () {",
+											"   pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/0bbe01f9-585f-4617-ba8f-8db97a0351fa",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"0bbe01f9-585f-4617-ba8f-8db97a0351fa"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener todos los restaurante",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Nume ro de restaurantes > ' + 0, function () {",
+											"   var data = pm.response.json()",
+											"   pm.expect(data.length).to.greaterThan(0)",
+											"});",
+											"",
+											"pm.test(\"Status code es 200\", function () {",
+											"   pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Borrar un restaurante",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 200\", function () {",
+											"   pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/{{restaurante_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"{{restaurante_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Borrar un restaurante que no existe",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 404\", function () {",
+											"   pm.response.to.have.status(404);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/0bbe01f9-585f-4617-ba8f-8db97a0351fa",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"0bbe01f9-585f-4617-ba8f-8db97a0351fa"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseProtocol",
+			"value": "http",
+			"type": "string"
+		},
+		{
+			"key": "baseURL",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "basePort",
+			"value": "3000",
+			"type": "string"
+		},
+		{
+			"key": "apiVersion",
+			"value": "v1",
+			"type": "string"
+		}
+	]
+}

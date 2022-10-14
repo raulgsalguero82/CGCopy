@@ -1,0 +1,499 @@
+{
+	"info": {
+		"_postman_id": "8057d3cc-c7a4-4994-8f15-24f42a3a855d",
+		"name": "Restaurantes-Ciudades",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6393143"
+	},
+	"item": [
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Restaurantes-Ciudades",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"pm.globals.set(\"token\", data.token);\r",
+											"\r",
+											"pm.test(\"Status code es 201\", function () {\r",
+											"   pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/users/login",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear un restaurante",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.globals.set(\"restaurante_id\", data.id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NombreRestaurante\"  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear una ciudad",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.globals.set(\"ciudad_id\", data.id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"Ciudad\"  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/ciudades",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"ciudades"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Asociar una ciudad a un restaurante",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Asociar una ciudad a un restaurante: Status code es 201\", function () {",
+											"   pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/{{restaurante_id}}/ciudades/{{ciudad_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"{{restaurante_id}}",
+										"ciudades",
+										"{{ciudad_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Desasociar una ciudad de un restaurante",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Asociar una ciudad a un restaurante: Status code es 200\", function () {",
+											"   pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/{{restaurante_id}}/ciudades/{{ciudad_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"{{restaurante_id}}",
+										"ciudades",
+										"{{ciudad_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Desasociar una ciudad de un restaurante inexistente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Desasociar una ciudad de un restaurante inexistente: Status code es 404\", function () {",
+											"   pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/00000000-0000-0000-0000-000000000000/ciudades/{{ciudad_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"00000000-0000-0000-0000-000000000000",
+										"ciudades",
+										"{{ciudad_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Asociar una ciudad inexistente a un restaurante",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Asociar una ciudad inexistente a un restaurante: Status code es 404\", function () {",
+											"   pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/{{restaurante_id}}/ciudades/00000000-0000-0000-0000-000000000000",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"{{restaurante_id}}",
+										"ciudades",
+										"00000000-0000-0000-0000-000000000000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Asociar una ciudad a un restaurante inexistente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Asociar una ciudad a un restaurante inexistente: Status code es 404\", function () {",
+											"   pm.response.to.have.status(404);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes/00000000-0000-0000-0000-000000000000/ciudades//{{ciudad_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes",
+										"00000000-0000-0000-0000-000000000000",
+										"ciudades",
+										"",
+										"{{ciudad_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseProtocol",
+			"value": "http",
+			"type": "string"
+		},
+		{
+			"key": "baseURL",
+			"value": "127.0.0.1",
+			"type": "string"
+		},
+		{
+			"key": "apiVersion",
+			"value": "V1",
+			"type": "string"
+		}
+	]
+}

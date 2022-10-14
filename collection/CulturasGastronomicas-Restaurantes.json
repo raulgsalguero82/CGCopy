@@ -1,0 +1,499 @@
+{
+	"info": {
+		"_postman_id": "ed74161f-6953-4e35-b726-6c7fc16735fa",
+		"name": "CulturasGastronomicas-Restaurantes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6393143"
+	},
+	"item": [
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "CulturasGastronomicas-Restaurantes",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"pm.globals.set(\"token\", data.token);\r",
+											"\r",
+											"pm.test(\"Status code es 201\", function () {\r",
+											"   pm.response.to.have.status(201);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/users/login",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()\r",
+											"pm.globals.set(\"id\", data.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"Cultura gastronomica 1\",\r\n    \"descripcion\" : \"Descripcion 1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Crear un restaurante",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"pm.globals.set(\"restaurante_id\", data.id);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NombreRestaurante\"  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/restaurantes",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"restaurantes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Asociar un restaurante a una cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Asociar un restaurante a una cultura gastronomica: Status code es 200\", function () {",
+											"   pm.response.to.have.status(201);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NombreRestaurante\"  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{id}}/restaurantes/{{restaurante_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{id}}",
+										"restaurantes",
+										"{{restaurante_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Asociar un restaurante inexistente a una cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Asociar un restaurante inexistente a una cultura gastronomica\", function () {",
+											"   pm.response.to.not.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NombreRestaurante\"  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{id}}/restaurantes/00000000-0000-0000-0000-000000000000",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{id}}",
+										"restaurantes",
+										"00000000-0000-0000-0000-000000000000"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Asociar un restaurante a una cultura gastronomica inexistente",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Asociar un restaurante a una cultura gastronomica inexistente\", function () {",
+											"   pm.response.to.not.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NombreRestaurante\"  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/00000000-0000-0000-0000-000000000000/restaurante/{{restaurante_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"00000000-0000-0000-0000-000000000000",
+										"restaurante",
+										"{{restaurante_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Obtener todos los restaurantes de una cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Obtener todos los restaurantes de una cultura gastronomica: Status code es 200\", function () {",
+											"   pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{id}}/restaurantes",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{id}}",
+										"restaurantes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Desasociar un restaurante de una cultura gastronomica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var data = pm.response.json()",
+											"",
+											"pm.test(\"Asociar un restaurante a una cultura gastronomica: Status code es 200\", function () {",
+											"   pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre\" : \"NombreRestaurante\"  \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/api/{{apiVersion}}/culturas-gastronomicas/{{id}}/restaurantes/{{restaurante_id}}",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"api",
+										"{{apiVersion}}",
+										"culturas-gastronomicas",
+										"{{id}}",
+										"restaurantes",
+										"{{restaurante_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"auth": {
+						"type": "bearer",
+						"bearer": [
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "string"
+							}
+						]
+					},
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseProtocol",
+			"value": "http",
+			"type": "string"
+		},
+		{
+			"key": "baseURL",
+			"value": "127.0.0.1",
+			"type": "string"
+		},
+		{
+			"key": "basePort",
+			"value": "3000",
+			"type": "string"
+		},
+		{
+			"key": "apiVersion",
+			"value": "V1",
+			"type": "string"
+		}
+	]
+}

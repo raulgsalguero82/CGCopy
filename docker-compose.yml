@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  app:
+    build: .
+    image: culturagastronomica
+    container_name: culturagastronomica_app
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      - DB_NAME=culturagastronomica
+      - DB_PSWD=postgres
+      - DB_USER=postgres
+      - DB_HOST=db
+  db:
+    image: postgres:14.5
+    container_name: culturagastronomica_db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=culturagastronomica
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: always
+
+  adminer:
+    image: adminer
+    container_name: culturagastronomica_adminer
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+volumes:
+  pgdata:

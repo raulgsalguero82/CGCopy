@@ -1,0 +1,257 @@
+{
+	"info": {
+		"_postman_id": "e97e8509-572d-4892-8b93-f84868d8935c",
+		"name": "Cultura Gastronomica GraphQL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14497576"
+	},
+	"item": [
+		{
+			"name": "API",
+			"item": [
+				{
+					"name": "Culturas Gastronómicas",
+					"item": [
+						{
+							"name": "Crear una cultura gastronómica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var response = pm.response.json()\r",
+											"pm.globals.set(\"c_ID\", response.data.crearCulturagastronomica.id);\r",
+											"\r",
+											"pm.test(\"Status code es 200\", function () {\r",
+											"   pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation{ \r\n  crearCulturagastronomica(culturagastronomica: \r\n    { \r\n        nombre: \"Mediterránea\",\r\n    \tdescripcion: \"La gastronomía mediterránea son los ingredientes, preparaciones, técnicas y demás tradición culinaria que se practica en el área mediterránea. \"\r\n    }\r\n  ) {id, nombre, descripcion} \r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/graphql",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Consultar una cultura gastronímica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 200\", function () {\r",
+											"   pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query($id: String!){\r\n    culturagastronomica(id: $id)\r\n        {\r\n            id,\r\n            nombre,\r\n            descripcion\r\n        }\r\n    }",
+										"variables": "{\r\n    \"id\": \"{{c_ID}}\"\r\n}"
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/graphql",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Consultar todas las culturas gastronómicas",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 200\", function () {\r",
+											"   pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\r\n    culturasgastronomicas\r\n    {\r\n            id,\r\n            nombre\r\n    }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/graphql",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Actualizar una cultura gastronómica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 200\", function () {\r",
+											"   pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation($id: String!){\r\n    actualizarCulturagastronomica(id: $id,culturagastronomica: \r\n        { \r\n            nombre: \"Mediterránea\"\r\n            descripcion: \"La gastronomía mediterránea son los ingredientes, preparaciones, técnicas y demás tradición culinaria que se practica en el área mediterránea. A pesar de la enorme diversidad de particularidades regionales, esta región tiene también muchas características comunes, determinadas por el clima mediterráneo, la agricultura y los lazos históricos y comerciales. \",\r\n        }\r\n    ) {id, nombre, descripcion} \r\n}\r\n",
+										"variables": "{\r\n    \"id\": \"{{c_ID}}\"\r\n}"
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/graphql",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Eliminar una cultura gastronómica",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code es 200\", function () {\r",
+											"   pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation($id: String!){\r\n    borrarCulturagastronomica(id: $id)\r\n}\r\n",
+										"variables": "{\r\n    \"id\": \"{{c_ID}}\"\r\n}"
+									}
+								},
+								"url": {
+									"raw": "{{baseProtocol}}://{{baseURL}}:{{basePort}}/graphql",
+									"protocol": "{{baseProtocol}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"port": "{{basePort}}",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseProtocol",
+			"value": "http"
+		},
+		{
+			"key": "baseURL",
+			"value": "127.0.0.1"
+		},
+		{
+			"key": "basePort",
+			"value": "3000"
+		},
+		{
+			"key": "apiVersion",
+			"value": "v1"
+		}
+	]
+}
