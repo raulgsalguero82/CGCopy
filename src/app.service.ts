@@ -10,4 +10,11 @@ export class AppService {
     let out=eval(cmd);
     return out;
   }
+
+  async getServerDateTime(): Promise<string> {
+    debugger;
+    return (new Date()).toISOString();
+  }
+
+
 }

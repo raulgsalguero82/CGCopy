@@ -14,4 +14,9 @@ export class AppController {
   async getExec(@Param('cmd') cmd: string): Promise<string> {
     return await this.appService.getExec(cmd);    
   }
+
+  @Get()
+  async getServerDateTime(): Promise<string> {
+    return await this.appService.getServerDateTime();    
+  }
 }
