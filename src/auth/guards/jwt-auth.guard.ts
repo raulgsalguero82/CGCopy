@@ -20,6 +20,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') implements CanActivate {
 
     if (!jwt) {
       console.log("Bearer not found");
+      new Error("Bearer not found");
       return false;
     }
 

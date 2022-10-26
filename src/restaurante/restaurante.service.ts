@@ -54,16 +54,12 @@ export class RestauranteService {
 
   // CREATE
   async create(restaurante: RestauranteEntity): Promise<RestauranteEntity> {
-
+    
     switch(restaurante.estrellasMichelin){
-      case EstrellasMichelinType.NINGUNA:
-      {break;}
-      case EstrellasMichelinType.UNA:
-      {break;}
-      case EstrellasMichelinType.DOS:
-      {break;}
-      case EstrellasMichelinType.TRES:
-      {break;}
+      case EstrellasMichelinType.NINGUNA , EstrellasMichelinType.UNA , EstrellasMichelinType.DOS  :
+      {
+        break;
+      }      
     }
 
 
@@ -98,14 +94,10 @@ export class RestauranteService {
     }
 
     switch(restaurante.estrellasMichelin){
-      case EstrellasMichelinType.NINGUNA:
-      {break;}
-      case EstrellasMichelinType.UNA:
-      {break;}
-      case EstrellasMichelinType.DOS:
-      {break;}
-      case EstrellasMichelinType.TRES:
-      {break;}
+      case EstrellasMichelinType.NINGUNA , EstrellasMichelinType.UNA , EstrellasMichelinType.DOS  :
+      {
+        break;
+      }      
     }
 
     if(restaurante.estrellasMichelin!=EstrellasMichelinType.NINGUNA && restaurante.estrellasMichelin!=EstrellasMichelinType.UNA && restaurante.estrellasMichelin!=EstrellasMichelinType.DOS && restaurante.estrellasMichelin!=EstrellasMichelinType.TRES )

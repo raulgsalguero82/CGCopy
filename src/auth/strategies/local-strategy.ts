@@ -14,10 +14,18 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     const user = await this.authService.validateUser(username, password);
     console.info('User login request ' + username+ "/" + password);
     if (!user) {
+      new Error("User not found");
       console.info('User login failed ' );
       throw new UnauthorizedException();
     }
     console.info('User loggedin ' );
+
+    var regexp = new RegExp('.*admin.*');
+    if(regexp.test(username))
+    {
+      console.warn("Admin user login");
+    }
+
     return user;
   }
 }
