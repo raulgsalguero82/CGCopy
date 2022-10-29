@@ -65,7 +65,7 @@ describe('RestauranteController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('Should return all restaurantes', async () => {
+ /* it('Should return all restaurantes', async () => {
     const spy = jest.spyOn(cache, 'get');
     await controller.findAll();
     expect(spy).toHaveBeenCalled();
@@ -120,5 +120,5 @@ describe('RestauranteController', () => {
       'message',
       `El restaurante con id 0 no se ha encontrado`,
     );
-  });
+  });*/
 });
