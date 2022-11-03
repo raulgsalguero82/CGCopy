@@ -20,7 +20,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     }
     console.info('User loggedin ' );
 
-    var regexp = new RegExp('.*admin.*');
+    const regexp = new RegExp('.*admin.*');
     if(regexp.test(username))
     {
       console.warn("Admin user login");
