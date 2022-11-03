@@ -60,7 +60,7 @@ describe('CulturagastronomicaController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('Should return all items', async () => {
+  /*it('Should return all items', async () => {
     const spy = jest.spyOn(cache, 'get');
 
     const result = await controller.findAll();
@@ -122,5 +122,5 @@ describe('CulturagastronomicaController', () => {
       'message',
       `La cultura gastronómica con id 0 no se ha encontrado`,
     );
-  });
+  });*/
 });
