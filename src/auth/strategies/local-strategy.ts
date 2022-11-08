@@ -11,17 +11,14 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
   async validate(username: string, password: string): Promise<any> {
     const user = await this.authService.validateUser(username, password);
-    console.info('User login request ' + username + '/' + password);
     if (!user) {
-      new Error('User not found');
-      console.info('User login failed ');
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('User not found');
     }
-    console.info('User loggedin ');
 
     const regexp = new RegExp(/.*admin.*/);
     if (regexp.test(username)) {
-      console.warn('Admin user login');
+      // Conexión a herramienta de logueo de eventos
+      return user;
     }
 
     return user;
