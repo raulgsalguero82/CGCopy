@@ -54,17 +54,12 @@ export class RestauranteService {
 
   // CREATE
   async create(restaurante: RestauranteEntity): Promise<RestauranteEntity> {
-    
-    switch(restaurante.estrellasMichelin){
-      case EstrellasMichelinType.NINGUNA , EstrellasMichelinType.UNA , EstrellasMichelinType.DOS  :
-      {
-        break;
-      }      
-    }
-
-
-    if(restaurante.estrellasMichelin!=EstrellasMichelinType.NINGUNA && restaurante.estrellasMichelin!=EstrellasMichelinType.UNA && restaurante.estrellasMichelin!=EstrellasMichelinType.DOS && restaurante.estrellasMichelin!=EstrellasMichelinType.TRES )
-    {
+    if (
+      restaurante.estrellasMichelin != EstrellasMichelinType.NINGUNA &&
+      restaurante.estrellasMichelin != EstrellasMichelinType.UNA &&
+      restaurante.estrellasMichelin != EstrellasMichelinType.DOS &&
+      restaurante.estrellasMichelin != EstrellasMichelinType.TRES
+    ) {
       throw new BusinessLogicException(
         `Formato invalido`,
         BusinessError.PRECONDITION_FAILED,
@@ -93,15 +88,12 @@ export class RestauranteService {
       );
     }
 
-    switch(restaurante.estrellasMichelin){
-      case EstrellasMichelinType.NINGUNA , EstrellasMichelinType.UNA , EstrellasMichelinType.DOS  :
-      {
-        break;
-      }      
-    }
-
-    if(restaurante.estrellasMichelin!=EstrellasMichelinType.NINGUNA && restaurante.estrellasMichelin!=EstrellasMichelinType.UNA && restaurante.estrellasMichelin!=EstrellasMichelinType.DOS && restaurante.estrellasMichelin!=EstrellasMichelinType.TRES )
-    {
+    if (
+      restaurante.estrellasMichelin != EstrellasMichelinType.NINGUNA &&
+      restaurante.estrellasMichelin != EstrellasMichelinType.UNA &&
+      restaurante.estrellasMichelin != EstrellasMichelinType.DOS &&
+      restaurante.estrellasMichelin != EstrellasMichelinType.TRES
+    ) {
       throw new BusinessLogicException(
         `Formato invalido`,
         BusinessError.PRECONDITION_FAILED,
@@ -130,8 +122,7 @@ export class RestauranteService {
     await this.restauranteRepository.remove(restaurante);
   }
 
-  async TODO()
-  {
+  async TODO() {
     //TODO
   }
 }
