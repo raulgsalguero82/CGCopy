@@ -172,4 +172,33 @@ describe('CulturagastronomicaRestauranteService', () => {
 
     expect(restaurantes.length).toBe(1);
   });
+
+  it('Traer CulturaGastronomica correctamente', async () => {
+    const culturaGastronomica: CulturaGastronomicaEntity =
+      await service.findCulturaGastronomica(storedCulturaGastronomica.id);
+
+    expect(culturaGastronomica.id).toBe(storedCulturaGastronomica.id);
+  });
+  it('Fallo en traer CulturaGastronomica', () => {
+    expect(async () =>
+      service.findCulturaGastronomica('0'),
+    ).rejects.toHaveProperty(
+      'message',
+      `La cultura gastronómica con id 0 no se ha encontrado`,
+    );
+  });
+
+  it('Traer Restaurante correctamente', async () => {
+    const restaurante: RestauranteEntity = await service.findRestaurante(
+      restaurantesList[0].id,
+    );
+
+    expect(restaurante.id).toBe(restaurantesList[0].id);
+  });
+  it('Fallo en traer Restaurante', () => {
+    expect(async () => service.findRestaurante('0')).rejects.toHaveProperty(
+      'message',
+      `El restaurante con id 0 no se ha encontrado`,
+    );
+  });
 });
