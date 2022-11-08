@@ -17,6 +17,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
     const regexp = new RegExp(/.*admin.*/);
     if (regexp.test(username)) {
+      // Conexión a herramienta de logueo de eventos
       return user;
     }
 
