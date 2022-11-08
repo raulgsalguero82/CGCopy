@@ -24,9 +24,8 @@ export class CulturagastronomicaRestauranteService {
     private readonly cacheManager: Cache,
   ) {}
 
-  async associateRestauranteCulturaGastronomica(
+  async findCulturaGastronomica(
     culturaGastronomicaId: string,
-    restauranteId: string,
   ): Promise<CulturaGastronomicaEntity> {
     const culturaGastronomica: CulturaGastronomicaEntity =
       await this.culturaGastronomicaRepository.findOne({
@@ -39,7 +38,10 @@ export class CulturagastronomicaRestauranteService {
         BusinessError.NOT_FOUND,
       );
     }
+    return culturaGastronomica;
+  }
 
+  async findRestaurante(restauranteId: string): Promise<RestauranteEntity> {
     const restaurante: RestauranteEntity = await this.recetaRepository.findOne({
       where: { id: `${restauranteId}` },
     });
@@ -49,6 +51,19 @@ export class CulturagastronomicaRestauranteService {
         BusinessError.NOT_FOUND,
       );
     }
+    return restaurante;
+  }
+
+  async associateRestauranteCulturaGastronomica(
+    culturaGastronomicaId: string,
+    restauranteId: string,
+  ): Promise<CulturaGastronomicaEntity> {
+    const culturaGastronomica: CulturaGastronomicaEntity =
+      await this.findCulturaGastronomica(culturaGastronomicaId);
+
+    const restaurante: RestauranteEntity = await this.findRestaurante(
+      restauranteId,
+    );
 
     culturaGastronomica.restaurantes = [
       ...culturaGastronomica.restaurantes,
@@ -121,8 +136,7 @@ export class CulturagastronomicaRestauranteService {
     return cached;
   }
 
-  async TODO()
-  {
+  async TODO() {
     //TODO
   }
 }
